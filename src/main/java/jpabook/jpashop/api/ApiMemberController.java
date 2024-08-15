@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
-public class ApiMemberRepository {
+public class ApiMemberController {
 
     private final MemberService memberService;
 
