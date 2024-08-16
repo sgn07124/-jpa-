@@ -104,6 +104,17 @@ public class OrderRepository {
         ).getResultList();
     }
 
+    public List<Order> findAllwithItem() {  // Springboot3, Hibernate6 에서는 distinct를 추가하지 않아도 자동으로 중복제거가 되어 결과가 2개만 나온다.
+        return em.createQuery(
+                "SELECT distinct o FROM Order o " +
+                "JOIN FETCH o.member m " +
+                "JOIN FETCH o.delivery d " +
+                "JOIN FETCH o.orderItems oi " +
+                "JOIN FETCH oi.item i", Order.class)
+                //.setFirstResult(1)
+                //.setMaxResults(100)  // 하이버네이트는 경고 로그를 남기면서 모든 데이터를 DB에서 읽어오고, 메모리에서 페이징함 -> 매우 위험
+                .getResultList();
+    }
 
 
     /**
